@@ -4,10 +4,6 @@
   become_method: sudo
   roles:
     - consul_install
-
-- name: Configure the consul
-  hosts: consul_agent
-  become: yes
-  become_method: sudo
-  roles:
     - consul_configure
+
+    
