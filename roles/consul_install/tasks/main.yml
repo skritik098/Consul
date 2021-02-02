@@ -5,6 +5,7 @@
 
 - name: Add the repo
   command: "yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo"
+  changed_when: true
 
 - name: Installing consul latest package
   yum:
@@ -19,11 +20,12 @@
 
 - name: Verify If consul is installed
   command: "consul"
-  ignore_errors: true
+  register: command_result
+  failed_when: "'FAILED' in command_result.stderr"
 
-- name: Generate the consul encryption key
-  command: "consul keygen"
-  register: consul_key
+# - name: Generate the consul encryption key
+#   command: "consul keygen"
+#   register: consul_key
 
 - name: Create consul agent config dirs
   file:
